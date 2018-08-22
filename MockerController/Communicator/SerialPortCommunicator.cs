@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WfiModuleDemo
+namespace MockerController.Communicator
 {
-    class SerialPortCommunicator
+    public class SerialPortCommunicator
     {
         private SerialPort _serialPort;
+
         private bool _continueFlag = true;
 
         public static string[] GetPortNames()
@@ -42,19 +43,41 @@ namespace WfiModuleDemo
             _continueFlag = false;
         }
 
-        public void Write(string text)
+        public void Write(Func<string> input)
         {
-            _serialPort.WriteLine(text);
+            StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
+            string command;
+            var module = new WifiModules.D700();
+            while (_continueFlag)
+            {
+                command = input();
+
+                if (stringComparer.Equals("q", command))
+                {
+                    Stop();
+                }
+                if (command == "1")
+                {
+                    var message = module.GetDeviceCapRespContent();
+                    _serialPort.WriteLine(command);
+                    Console.WriteLine(message);
+                }
+            }
         }
 
-        public void Read()
+        public void Read(Action<string> messageReadedAction)
         {
+            var previousMessage = "";
             while (_continueFlag)
             {
                 try
                 {
                     string message = _serialPort.ReadLine();
-                    Console.WriteLine(message);
+                    if (previousMessage != message && messageReadedAction != null)
+                    {
+                        messageReadedAction(message);
+                    }
+                    previousMessage = message;
                 }
                 catch (TimeoutException) { }
             }

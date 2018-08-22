@@ -4,43 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using MockerController;
 
-namespace WfiModuleDemo
+namespace WifiModuleDemo
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var communicator = new SerialPortCommunicator(GetPortName());
-            var readThread = new Thread(communicator.Read);
-            communicator.Start();
-            readThread.Start();
-            WriteAsMainThread();
-            readThread.Join();
-            communicator.Stop();
+            var portName = GetPortName();
+            var controller = new MockerController.StrategyImp(portName);
+            controller.Run(Console.WriteLine, Console.ReadLine);
+            Console.WriteLine("exit with code 0");
+            Console.ReadLine();
         }
 
-        public static void WriteAsMainThread()
-        {
-            StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
-            string command;
-            bool _continue = true;
-            while (_continue)
-            {
-                command = Console.ReadLine();
-
-                if (command == "1")
-                {
-                    var message = GetConstant();
-                    _serialPort.WriteLine(constant);
-                    Console.WriteLine(constant);
-                }
-                if (stringComparer.Equals("q", command))
-                {
-                    _continue = false;
-                }
-            }
-        }
 
         public static string GetPortName()
         {
@@ -48,7 +26,7 @@ namespace WfiModuleDemo
             string portName;
 
             Console.WriteLine("Available Ports:");
-            foreach (string s in SerialPortCommunicator.GetPortNames())
+            foreach (string s in MockerController.Communicator.SerialPortCommunicator.GetPortNames())
             {
                 Console.WriteLine("   {0}", s);
             }
