@@ -59,25 +59,27 @@ namespace MockerController.Communicator
                 if (command == "1")
                 {
                     var message = module.GetDeviceCapRespContent();
-                    _serialPort.WriteLine(command);
-                    Console.WriteLine(message);
+                    Write(message);
                 }
             }
         }
 
+        public void Write(string message)
+        {
+            _serialPort.WriteLine(message);
+            Console.WriteLine(message);
+        }
+
         public void Read(Action<string> messageReadedAction)
         {
-            var previousMessage = "";
+            var module = new WifiModules.D700();
             while (_continueFlag)
             {
                 try
                 {
                     string message = _serialPort.ReadLine();
-                    if (previousMessage != message && messageReadedAction != null)
-                    {
-                        messageReadedAction(message);
-                    }
-                    previousMessage = message;
+                    messageReadedAction?.Invoke(message);
+                    module.AutoResponse(message, Write);
                 }
                 catch (TimeoutException) { }
             }

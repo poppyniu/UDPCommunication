@@ -13,5 +13,13 @@ namespace WifiModules
         {
             return PackingMessage("C", MessageWarehouse.D700.GetDeviceCapResp);
         }
+
+        public void AutoResponse(string req, Action<string> writer)
+        {
+            if (req == MessageWarehouse.D700.GetDeviceCapReq)
+            {
+                writer?.Invoke(GetDeviceCapRespContent());
+            }
+        }
     }
 }
