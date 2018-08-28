@@ -8,7 +8,7 @@ namespace WifiModules.Util
 {
     public class SlipPacketBuilder
     {
-        public static string BuildMessage(string message)
+        public static string PacketMessage(string message)
         {
             var resp = new StringBuilder();
             resp.Append(message);
@@ -19,6 +19,11 @@ namespace WifiModules.Util
             resp.Append('\0');
             resp.Append(CrcCalculator.CRC_8(Encoding.UTF8.GetBytes(resp.ToString())));
             return resp.ToString();
+        }
+
+        public static string UnpacketMessage(string message)
+        {
+            throw new NotImplementedException();
         }
     }
 }

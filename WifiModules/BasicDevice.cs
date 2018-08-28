@@ -30,7 +30,7 @@ namespace WifiModules
         {
             var resp = StartChar;
             resp += channel.ToUpper();
-            resp += Util.SlipPacketBuilder.BuildMessage(message);
+            resp += Util.SlipPacketBuilder.PacketMessage(message);
             resp += EndChar;
             return resp;
         }
