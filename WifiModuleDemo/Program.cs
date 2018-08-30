@@ -22,7 +22,7 @@ namespace WifiModuleDemo
 
         public static string GetPortName()
         {
-            var defaultPortName = "COM1";
+            var defaultPortName = "COM3";
             string portName;
 
             Console.WriteLine("Available Ports:");

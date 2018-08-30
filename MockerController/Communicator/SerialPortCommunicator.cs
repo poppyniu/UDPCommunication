@@ -61,6 +61,11 @@ namespace MockerController.Communicator
                     var message = module.GetDeviceCapRespContent();
                     Write(message);
                 }
+                else if (command == "0")
+                {
+                    var message = module.ResetCommand();
+                    Write(message);
+                }
             }
         }
 
@@ -78,6 +83,7 @@ namespace MockerController.Communicator
                 try
                 {
                     string message = _serialPort.ReadLine();
+                   // Console.Write("\n msg: "+message);
                     messageReadedAction?.Invoke(message);
                     module.AutoResponse(message, Write);
                 }
