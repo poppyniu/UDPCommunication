@@ -8,30 +8,11 @@ namespace MessageWarehouse
 {
     public class D700
     {
-        //public static string GetDeviceCapResp
-        //{
-        //    get
-        //    {
-        //        return @"<ctl td='DeviceCap'>
-        //            <MID>xxx@xb.ecorobot.net/atom</MID>
-        //            <class>XianBao</class>
-        //            <acs v='setting,userman,clean'/>
-        //            <acms>
-        //            <acm ac='userman' td='GetUserInfo,AddUser,DelUser,SetAC,GetAccessControl,SetAccessControl'/>
-        //            <acm ac='clean' td='Move,ChargeState,Clean,CleanReport,GetChargeState,GetCleanState'/>
-        //            <acm ac='setting' td='SetSched'/>
-        //            <acm ac='' td=''/>
-        //            </acms>
-        //            </ctl>";
-        //    }
-        //}
-
-        //获取设备
         public static string GetDeviceCapResp
         {
             get
             {
-                return @"<ctl td='DeviceCap' c='s'><MID>E07324e9d7e2487fcaf4@101.ecorobot.net/atom</MID><key>123456</key><class>101</class><acs v='setting,userman,clean'/><acms><acm ac='userman' td='GetUserInfo,AddUser,DelUser,SetAC,GetAccessControl,SetAccessControl'/><acm ac='clean' td='PushRobotNotify,Move,GetChargeState,ChargeState,Clean,GetCleanState,GetBatteryInfo,CleanReport,GetLog,Log'/><acm ac='setting' td='SetTime,AddSched,ModSched,DelSched,Sched2,EmptyLog'/><acm ac='' td='BatteryInfo,LifeSpan,error'/></acms></ctl>";
+                return "<ctl td='DeviceCap' c='s'><MID>E07324e9d7e2487fcaf4@101.ecorobot.net/atom</MID><key>123456</key><class>101</class><acs v='setting,userman,clean'/><acms><acm ac='userman' td='GetUserInfo,AddUser,DelUser,SetAC,GetAccessControl,SetAccessControl'/><acm ac='clean' td='PushRobotNotify,Move,GetChargeState,ChargeState,Clean,GetCleanState,GetBatteryInfo,CleanReport,GetLog,Log'/><acm ac='setting' td='SetTime,AddSched,ModSched,DelSched,Sched2,EmptyLog'/><acm ac='' td='BatteryInfo,LifeSpan,error'/></acms></ctl>";
             }
         }
 
@@ -40,7 +21,7 @@ namespace MessageWarehouse
             get
             {
                 //return @"710475@ecouser.net/171f6975\0\0<ctl td='ChargeState'><charge type='SlotCharging'/></ctl>";
-                return @"710475@ecouser.net/democ2531404\0\0<ctl td='ChargeState'><charge type='SlotCharging'/></ctl>";
+                return "\0710475@ecouser.net/democ2531404\0<ctl td='ChargeState'><charge type='SlotCharging'/></ctl>";
             }
         }
 
