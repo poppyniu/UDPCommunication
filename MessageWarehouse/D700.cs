@@ -21,7 +21,7 @@ namespace MessageWarehouse
             get
             {
                 //return @"710475@ecouser.net/171f6975\0\0<ctl td='ChargeState'><charge type='SlotCharging'/></ctl>";
-                return "\0710475@ecouser.net/democ2531404\0<ctl td='ChargeState'><charge type='SlotCharging'/></ctl>";
+                return "710475@ecouser.net/democ2531404\0\0<ctl td='ChargeState'><charge type='SlotCharging'/></ctl>";
             }
         }
 
