@@ -13,8 +13,8 @@ namespace UnitTest
         [Test]
         public void TestPackingPayload()
         {
-            var device = new WifiModules.D700();
-            var message = device.GetChargeStateResp();
+            var device = new WifiModules.Xianbo();
+            var message = device.GetChargeStateResp("UnitTest");
             Console.WriteLine(message);
         }
     }

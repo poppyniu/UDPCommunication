@@ -47,7 +47,7 @@ namespace MockerController.Communicator
         {
             StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
             string command;
-            var module = new WifiModules.D700();
+            var module = new WifiModules.Xianbo();
             while (_continueFlag)
             {
                 command = input();
@@ -56,12 +56,7 @@ namespace MockerController.Communicator
                 {
                     Stop();
                 }
-                if (command == "1")
-                {
-                    var message = module.GetDeviceCapRespContent();
-                    Write(message);
-                }
-                else if (command == "0")
+                if (command == "0")
                 {
                     var message = module.ResetCommand();
                     Write(message);
@@ -77,13 +72,12 @@ namespace MockerController.Communicator
 
         public void Read(Action<string> messageReadedAction)
         {
-            var module = new WifiModules.D700();
+            var module = new WifiModules.Xianbo();
             while (_continueFlag)
             {
                 try
                 {
                     string message = _serialPort.ReadLine();
-                   // Console.Write("\n msg: "+message);
                     messageReadedAction?.Invoke(message);
                     module.AutoResponse(message, Write);
                 }

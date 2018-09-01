@@ -40,8 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonDevice.cs" />
     <Compile Include="D700.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RcpRequestParser.cs" />
+    <Compile Include="RcpRequestType.cs" />
+    <Compile Include="XianBo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

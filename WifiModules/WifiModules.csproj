@@ -41,10 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicDevice.cs" />
-    <Compile Include="D700.cs" />
+    <Compile Include="DataModel\RcpDataFlow.cs" />
     <Compile Include="Util\CrcCalculator.cs" />
-    <Compile Include="Util\SlipPacketBuilder.cs" />
+    <Compile Include="Util\RcpBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Xianbo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MessageWarehouse\MessageWarehouse.csproj">
