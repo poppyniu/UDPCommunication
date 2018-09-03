@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,16 @@ namespace MessageWarehouse
             {
                 return RcpRequestType.GetDeviceCap;
             }
-            throw new NotImplementedException();
+            if (td == "WIFIStat")
+            {
+                return RcpRequestType.WIFIStat;
+            }
+            if (td== "GetChargeState")
+            {
+                return RcpRequestType.GetChargeState;
+            }
+            Debug.WriteLine($"{td} is not defined");
+            return RcpRequestType.NotDefined;
         }
     }
 }

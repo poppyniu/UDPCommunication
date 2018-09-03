@@ -47,7 +47,7 @@ namespace MockerController.Communicator
         {
             StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
             string command;
-            var module = new WifiModules.Xianbo();
+            var module = new WifiModules.DW700();
             while (_continueFlag)
             {
                 command = input();
@@ -72,7 +72,7 @@ namespace MockerController.Communicator
 
         public void Read(Action<string> messageReadedAction)
         {
-            var module = new WifiModules.Xianbo();
+            var module = new WifiModules.DW700();
             while (_continueFlag)
             {
                 try

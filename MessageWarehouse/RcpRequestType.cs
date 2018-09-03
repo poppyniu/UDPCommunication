@@ -10,7 +10,7 @@ namespace MessageWarehouse
     {
         NotDefined,
         GetDeviceCap,
-        ChargeState,
-
+        WIFIStat,
+        GetChargeState,
     }
 }

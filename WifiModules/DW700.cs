@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace WifiModules
 {
-    public class Xianbo : BasicDevice
+    public class DW700 : BasicDevice
     {
-        MessageWarehouse.XianBo _responsHelper = new MessageWarehouse.XianBo();
+        MessageWarehouse.DW700 _responsHelper = new MessageWarehouse.DW700();
 
         public override string GetChargeStateResp(string id)
         {

@@ -45,7 +45,7 @@
     <Compile Include="Util\CrcCalculator.cs" />
     <Compile Include="Util\RcpBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Xianbo.cs" />
+    <Compile Include="DW700.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MessageWarehouse\MessageWarehouse.csproj">

@@ -3,22 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MessageWarehouse;
 
 namespace WifiModules
 {
     public abstract class BasicDevice
     {
-        private string StartChar
+        private Util.RcpBuilder _rcpBuilder = new Util.RcpBuilder();
+        private RcpRequestParser _rcpRequestParser = new RcpRequestParser();
+
+        public abstract string GetDeviceCapResp();
+
+        public abstract string ResetCommand();
+
+        public abstract string GetChargeStateResp(string id);
+
+        protected string BuildChanneCResponse(string message)
         {
-            get
-            {
-                return "`F";
-            }
+            return _rcpBuilder.BuildChannleC(message);
         }
 
-        private string EndChar
+        protected string BuildChanneAResponse(string id, string message)
         {
-            get
+            return _rcpBuilder.BuildChannelA(id, message);
+        }
+
+        public void AutoResponse(string req, Action<string> writer)
+        {
+            var dataFlow = new DataModel.RcpDataFlow(req);
+            var type = _rcpRequestParser.GetRequestType(dataFlow.RcpMessage);
+            if (type == RcpRequestType.GetDeviceCap)
             {
                 return "\n";
             }
@@ -30,7 +44,7 @@ namespace WifiModules
         {
             var resp = StartChar;
             resp += channel.ToUpper();
-            resp += Util.SlipPacketBuilder.PacketMessage(message);
+            resp += Util.SlipPacketBuilder.BuildMessage(message);
             resp += EndChar;
             return resp;
         }
