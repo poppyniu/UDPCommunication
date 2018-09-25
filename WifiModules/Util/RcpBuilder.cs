@@ -45,5 +45,43 @@ namespace WifiModules.Util
             resp.Append(EndChar);
             return resp.ToString();
         }
+
+        internal string BuildChannelB(string message)
+        {
+            var resp = new StringBuilder();
+            resp.Append(StartChar);
+            resp.Append("B");
+            resp.Append('\0');
+            resp.Append('\0');
+            resp.Append(PackSlipMessage(message));
+            resp.Append(EndChar);
+            return resp.ToString();
+        }
+
+        internal string BuildChannelR(string id, string message)
+        {
+            var resp = new StringBuilder();
+            resp.Append(StartChar);
+            resp.Append("R");
+            resp.Append(id);
+            resp.Append('\0');
+            resp.Append("x");
+            resp.Append(PackSlipMessage(message));
+            resp.Append(EndChar);
+            return resp.ToString();
+        }
+
+        private string PackSlipMessage_temp(string message)
+        {
+            var resp = new StringBuilder();
+            resp.Append(message);
+            //resp.Replace("\r\n", "\0");
+            //resp.Replace("\\", "\0x01");
+            //resp.Replace("`", "\0x02");
+            //resp.Replace("\n", "\0x03");
+            //resp.Append('\0');
+            resp.Append(CrcCalculator.CRC_8(Encoding.UTF8.GetBytes(resp.ToString())));
+            return resp.ToString();
+        }
     }
 }

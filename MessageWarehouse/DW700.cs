@@ -19,12 +19,64 @@ namespace MessageWarehouse
             }
         }
 
+        /// <summary>
+        /// *type: 
+        // Going - 返回途中, 
+        // SlotCharging - 在充电座上充电,  
+        // WireCharging - 线充, 
+        // Idle - 正常状态
+        /// </summary>
         public string GetChargeStateResp
         {
             get
             {
-                return "<ctl td='ChargeState'><charge type='SlotCharging'/></ctl>";
+                return "<ctl td='ChargeState'><charge type='Idle'/></ctl>";
             }
+        }
+
+        public string GetVersionResp
+        {
+            get
+            {
+                return "<ctl td='version'><ver name='FW'>0.16.1</ver></ctl>";
+            }
+        }
+
+        public string GetBatteryInfoResp
+        {
+            get
+            {
+                return "<ctl td='BatteryInfo'><battery power='10'/></ctl>";
+            }
+        }
+
+        /// <summary>
+        /// * type:
+        //* auto-自动, 
+        //* spot-定点, 
+        //* border-沿边, 
+        //* singleRoom-单间,
+        //* stop - 清扫停止
+        /// </summary>
+        public string GetCleanReportResp
+        {
+            get
+            {
+                return "<ctl td='CleanReport'><clean type='stop'/></ctl>";
+            }
+        }
+
+        public string GetSchedResp
+        {
+            get
+            {
+                return "<ctl td='Sched2' id='req_resp_id'><sn='sched_a' o='0' t='12:10' r='0000001'><ctl td='clean' type='auto'/></s></ctl>";
+            }
+        }
+
+        public string GetErrorNumberResp(int number)
+        {
+            return $"<ctl td='error' errno='{number}'/>";
         }
     }
 }

@@ -11,6 +11,7 @@ namespace WifiModules
     {
         private Util.RcpBuilder _rcpBuilder = new Util.RcpBuilder();
         private RcpRequestParser _rcpRequestParser = new RcpRequestParser();
+        protected static string _bundleId = null;
 
         public abstract string GetDeviceCapResp();
 
@@ -18,9 +19,29 @@ namespace WifiModules
 
         public abstract string GetChargeStateResp(string id);
 
+        public abstract string GetVersionResp(string id);
+
+        public abstract string GetBatteryInfoResp(string id);
+
+        public abstract string GetCleanReportResp(string id);
+
+        public abstract string GetSchedResp(string id);
+
+        public abstract string NotifyError(int errorNumber);
+
         protected string BuildChanneCResponse(string message)
         {
             return _rcpBuilder.BuildChannleC(message);
+        }
+
+        protected string BuildChanneRResponse(string id, string message)
+        {
+            return _rcpBuilder.BuildChannelR(id, message);
+        }
+
+        protected string BuildChanneBResponse(string message)
+        {
+            return _rcpBuilder.BuildChannelB(message);
         }
 
         protected string BuildChanneAResponse(string id, string message)
@@ -28,13 +49,34 @@ namespace WifiModules
             return _rcpBuilder.BuildChannelA(id, message);
         }
 
+        //TODO: Add Auto Response Logic Here
         public void AutoResponse(string req, Action<string> writer)
         {
             var dataFlow = new DataModel.RcpDataFlow(req);
             var type = _rcpRequestParser.GetRequestType(dataFlow.RcpMessage);
+            if (!String.IsNullOrEmpty(dataFlow.BundleId))
+            {
+                _bundleId = dataFlow.BundleId;
+            }
             if (type == RcpRequestType.GetDeviceCap)
             {
                 return "\n";
+            }
+            else if (type == RcpRequestType.GetVersion)
+            {
+                writer?.Invoke(GetVersionResp(dataFlow.BundleId));
+            }
+            else if (type == RcpRequestType.GetBatteryInfo)
+            {
+                writer?.Invoke(GetBatteryInfoResp(dataFlow.BundleId));
+            }
+            else if (type == RcpRequestType.GetCleanState)
+            {
+                writer?.Invoke(GetCleanReportResp(dataFlow.BundleId));
+            }
+            else if (type == RcpRequestType.GetSched)
+            {
+                writer?.Invoke(GetSchedResp(dataFlow.BundleId));
             }
         }
 

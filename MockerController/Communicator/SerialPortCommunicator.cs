@@ -50,15 +50,28 @@ namespace MockerController.Communicator
             var module = new WifiModules.DW700();
             while (_continueFlag)
             {
-                command = input();
-
+                var args = input().Split(' ');
+                if (args.Length == 0)
+                {
+                    continue;
+                }
+                command = args[0];
                 if (stringComparer.Equals("q", command))
                 {
                     Stop();
                 }
-                if (command == "0")
+                else if (command == "0")
                 {
                     var message = module.ResetCommand();
+                    Write(message);
+                }
+                else if (command == "e")
+                {
+                    if (args.Length < 2)
+                    {
+                        continue;
+                    }
+                    var message = module.NotifyError(int.Parse(args[1]));
                     Write(message);
                 }
             }

@@ -12,5 +12,9 @@ namespace MessageWarehouse
         GetDeviceCap,
         WIFIStat,
         GetChargeState,
+        GetVersion,
+        GetBatteryInfo,
+        GetCleanState,
+        GetSched
     }
 }

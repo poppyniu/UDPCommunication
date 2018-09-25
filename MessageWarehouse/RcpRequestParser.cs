@@ -10,6 +10,7 @@ namespace MessageWarehouse
 {
     public class RcpRequestParser
     {
+        //TODO： Parse Control Message Here
         public RcpRequestType GetRequestType(string message)
         {
             var doc = new XmlDocument();
@@ -28,11 +29,26 @@ namespace MessageWarehouse
             {
                 return RcpRequestType.WIFIStat;
             }
-            if (td== "GetChargeState")
+            if (td == "GetChargeState")
             {
                 return RcpRequestType.GetChargeState;
             }
-            Debug.WriteLine($"{td} is not defined");
+            if (td == "GetVersion")
+            {
+                return RcpRequestType.GetVersion;
+            }
+            if (td == "GetBatteryInfo")
+            {
+                return RcpRequestType.GetBatteryInfo;
+            }
+            if (td == "GetCleanState")
+            {
+                return RcpRequestType.GetCleanState;
+            }
+            if (td == "GetSched")
+            {
+                return RcpRequestType.GetSched;
+            }
             return RcpRequestType.NotDefined;
         }
     }
