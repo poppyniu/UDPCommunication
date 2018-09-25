@@ -60,7 +60,7 @@ namespace WifiModules
             }
             if (type == RcpRequestType.GetDeviceCap)
             {
-                return "\n";
+                writer?.Invoke(GetDeviceCapResp());
             }
             else if (type == RcpRequestType.GetVersion)
             {
@@ -78,17 +78,6 @@ namespace WifiModules
             {
                 writer?.Invoke(GetSchedResp(dataFlow.BundleId));
             }
-        }
-
-        public abstract string GetDeviceCapRespContent();
-
-        protected string PackingMessage(string channel, string message)
-        {
-            var resp = StartChar;
-            resp += channel.ToUpper();
-            resp += Util.SlipPacketBuilder.BuildMessage(message);
-            resp += EndChar;
-            return resp;
         }
     }
 }
