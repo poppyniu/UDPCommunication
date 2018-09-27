@@ -14,10 +14,11 @@ namespace UdpDemo
         {
             var server = new UdpServer();
             var task = new List<Task>();
-            task.Add(new Task(() =>
-            {
                 server.Receiver();
-            }));
+            //task.Add(new Task(() =>
+            //{
+            //    server.Receiver();
+            //}));
             while (true)
             {
                 var input = Console.ReadLine();

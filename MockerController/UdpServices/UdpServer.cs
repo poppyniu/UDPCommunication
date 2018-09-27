@@ -6,7 +6,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace MockerController.UdpServices
 {
@@ -36,20 +35,17 @@ namespace MockerController.UdpServices
                 var buffer = new byte[1024];
                 var length = server.ReceiveFrom(buffer, ref point);
                 var message = Encoding.UTF8.GetString(buffer, 0, length);
-                var req = JsonConvert.DeserializeObject<Model.RequestModel>(message, new JsonSerializerSettings
-                {
-                    MissingMemberHandling = MissingMemberHandling.Ignore
-                });
-                HandleRequest(req);
+                HandleRequest(message);
             }
         }
 
-        private void HandleRequest(Model.RequestModel data)
+        private void HandleRequest(string data)
         {
+            var subs = data.Split(' ');
             var module = new WifiModules.DW700();
-            if (data.Type.ToLower() == "error")
+            if (subs[0].ToLower() == "error")
             {
-                var message = module.NotifyError(Convert.ToInt32(data.ExpectResponse));
+                var message = module.NotifyError(Convert.ToInt32(subs[1]));
                 _spc.Write(message);
             }
             else
@@ -62,8 +58,7 @@ namespace MockerController.UdpServices
         private void ResponseToSender()
         {
             EndPoint point = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 6000);
-            var resp = new Model.ResponseModule { IsOK = true };
-            var msg = JsonConvert.SerializeObject(resp);
+            var msg = "OK";
             server.SendTo(Encoding.UTF8.GetBytes(msg), point);
             Console.WriteLine("Info: Udp action is finished.");
         }
