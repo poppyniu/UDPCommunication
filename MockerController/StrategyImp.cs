@@ -11,10 +11,12 @@ namespace MockerController
     public class StrategyImp
     {
         private SerialPortCommunicator _commInstance;
+        private UdpServices.UdpServer _udpInstance;
 
         public StrategyImp(string portName)
         {
             _commInstance = new SerialPortCommunicator(portName);
+            _udpInstance = new UdpServices.UdpServer(_commInstance);
         }
 
         public void Run(Action<string> output, Func<string> input)
@@ -28,6 +30,10 @@ namespace MockerController
             tasks.Add(Task.Run(() =>
             {
                 _commInstance.Write(input);
+            }));
+            tasks.Add(Task.Run(() =>
+            {
+                _udpInstance.Run();
             }));
             Task.WaitAll(tasks.ToArray());
         }

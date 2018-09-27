@@ -13,6 +13,14 @@ namespace MockerController.Communicator
 
         private bool _continueFlag = true;
 
+        public bool IsRunning
+        {
+            get
+            {
+                return _continueFlag;
+            }
+        }
+
         public static string[] GetPortNames()
         {
             return SerialPort.GetPortNames();
@@ -80,7 +88,9 @@ namespace MockerController.Communicator
         public void Write(string message)
         {
             _serialPort.WriteLine(message);
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(message);
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public void Read(Action<string> messageReadedAction)
@@ -92,7 +102,10 @@ namespace MockerController.Communicator
                 {
                     string message = _serialPort.ReadLine();
                     messageReadedAction?.Invoke(message);
-                    module.AutoResponse(message, Write);
+                    if (message.StartsWith("`"))
+                    {
+                        module.AutoResponse(message, Write);
+                    }
                 }
                 catch (TimeoutException) { }
             }

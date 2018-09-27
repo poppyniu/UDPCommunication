@@ -14,7 +14,14 @@ namespace MessageWarehouse
         public RcpRequestType GetRequestType(string message)
         {
             var doc = new XmlDocument();
-            doc.LoadXml(message);
+            try
+            {
+                doc.LoadXml(message);
+            }
+            catch (Exception)
+            {
+                return RcpRequestType.NotDefined;
+            }
             var node = doc.SelectSingleNode("//ctl[@td]");
             if (node == null)
             {
