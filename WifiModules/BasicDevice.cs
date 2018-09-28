@@ -17,6 +17,8 @@ namespace WifiModules
 
         public abstract string ResetCommand();
 
+        public abstract string GetWifiStat();
+
         public abstract string GetChargeStateResp(string id);
 
         public abstract string GetVersionResp(string id);

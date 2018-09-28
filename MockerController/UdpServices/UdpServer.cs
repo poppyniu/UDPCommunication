@@ -18,6 +18,7 @@ namespace MockerController.UdpServices
         {
             server = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             server.Bind(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 6001));
+            _spc = spc;
         }
 
         private void WriteLine(string msg)
@@ -27,15 +28,30 @@ namespace MockerController.UdpServices
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-        public void Run()
+        public void Run(Action<string> output)
         {
             while (_spc.IsRunning)
             {
-                EndPoint point = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 0);
-                var buffer = new byte[1024];
-                var length = server.ReceiveFrom(buffer, ref point);
-                var message = Encoding.UTF8.GetString(buffer, 0, length);
-                HandleRequest(message);
+                try
+                {
+                    if (server == null)
+                    {
+                        server = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                        server.Bind(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 6001));
+                    }
+                    EndPoint point = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 0);
+                    var buffer = new byte[1024];
+                    //output?.Invoke("Info: Wait for client.");
+                    var length = server.ReceiveFrom(buffer, ref point);
+                    var message = Encoding.UTF8.GetString(buffer, 0, length);
+                    //output?.Invoke(message);
+                    HandleRequest(message);
+                }
+                catch (Exception e)
+                {
+                    server.Close();
+                    server = null;
+                }
             }
         }
 
@@ -60,7 +76,7 @@ namespace MockerController.UdpServices
             EndPoint point = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 6000);
             var msg = "OK";
             server.SendTo(Encoding.UTF8.GetBytes(msg), point);
-            Console.WriteLine("Info: Udp action is finished.");
+            //Console.WriteLine("Info: Udp action is finished.");
         }
     }
 }

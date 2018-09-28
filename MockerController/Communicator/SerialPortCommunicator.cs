@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MockerController.Communicator
@@ -51,6 +52,8 @@ namespace MockerController.Communicator
             _continueFlag = false;
         }
 
+
+
         public void Write(Func<string> input)
         {
             StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
@@ -91,6 +94,17 @@ namespace MockerController.Communicator
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(message);
             Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        public void Heartbeat(Action<string> messageReadedAction)
+        {
+            var module = new WifiModules.DW700();
+            while (_continueFlag)
+            {
+                var message = module.GetWifiStat();
+                Write(message);
+                Thread.Sleep(10000);
+            }
         }
 
         public void Read(Action<string> messageReadedAction)

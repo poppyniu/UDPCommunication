@@ -15,5 +15,13 @@ namespace MessageWarehouse
                 return @"<ctl id='123' td='FactoryRest'/>";
             }
         }
+
+        public string GetWifiStat
+        {
+            get
+            {
+                return @"<ctl id='123' td='GetWIFIStat'/>";
+            }
+        }
     }
 }

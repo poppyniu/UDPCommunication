@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MessageWarehouse
-{
+{//TODO： Parse Control Message Here
     public class DW700 : CommonDevice
     {
-        public string DeviceId = "E07324e9d7e2487fcaf4@101.ecorobot.net/atom";
+        public string DeviceId = "Ezhuangyan2018092509@101.ecorobot.net/atom";
 
         public string GetDeviceCapResp
         {

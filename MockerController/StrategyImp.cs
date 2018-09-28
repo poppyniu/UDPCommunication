@@ -33,7 +33,11 @@ namespace MockerController
             }));
             tasks.Add(Task.Run(() =>
             {
-                _udpInstance.Run();
+                _commInstance.Heartbeat(output);
+            }));
+            tasks.Add(Task.Run(() =>
+            {
+                _udpInstance.Run(output);
             }));
             Task.WaitAll(tasks.ToArray());
         }

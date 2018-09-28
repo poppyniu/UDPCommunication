@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WifiModules
-{
+   {//TODO： Parse Control Message Here
     public class DW700 : BasicDevice
     {
         MessageWarehouse.DW700 _responsHelper = new MessageWarehouse.DW700();
@@ -48,6 +48,11 @@ namespace WifiModules
         public override string ResetCommand()
         {
             return BuildChanneCResponse(_responsHelper.ResetResp);
+        }
+
+        public override string GetWifiStat()
+        {
+            return BuildChanneCResponse(_responsHelper.GetWifiStat);
         }
     }
 }
