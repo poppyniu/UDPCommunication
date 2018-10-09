@@ -24,7 +24,7 @@ namespace MessageWarehouse
         // Going - 返回途中, 
         // SlotCharging - 在充电座上充电,  
         // WireCharging - 线充, 
-        // Idle - 正常状态
+        // Idle -正常状态
         /// </summary>
         public string GetChargeStateResp
         {
