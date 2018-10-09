@@ -66,17 +66,89 @@ namespace MessageWarehouse
             }
         }
 
+        public string GetLogResp
+        {
+            get
+            {
+                return "<ctl td='Log' time='2018 - 11 - 11 11:11' evt='1'/>";
+            }
+        }
+
+        public string GetLifeSpanResp
+        {
+            get
+            {
+                return "<ctl ret='ok' errno='' type='SideBrush' left='50' total='100'/>";
+            }
+        }
+
+        public string AddSchedResp
+        {
+            get
+            {
+                return "<ctl id='req_resp_id' ret='ok'/>";
+            }
+        }
+
+        public string ModSchedResp
+        {
+            get
+            {
+                return "<ctl id='req_resp_id' ret='ok'/>";
+            }
+        }
+
+        public string DelSchedResp
+        {
+            get
+            {
+                return "<ctl id='req_resp_id' ret='ok'/>";
+            }
+        }
+
+
+        public string GetCleanReportResp1(string cleanType)
+        {
+            {
+                return $"<ctl td='CleanReport'><clean type='{cleanType}' speed='20'/></ctl>";
+            }
+
+        }
+
+        public string CleanResp
+        {
+            get
+            {
+                return "< ctl td = 'Clean'>< clean type = 'auto'/></ ctl >";
+            }
+
+        }
+
         public string GetSchedResp
         {
             get
             {
-                return "<ctl td='Sched2' id='req_resp_id'><sn='sched_a' o='0' t='12:10' r='0000001'><ctl td='clean' type='auto'/></s></ctl>";
+                return "<ctl td='Sched2' id='req_resp_id'><s n='15390502766071' o='1' t='12:10' r='0000001'><ctl td='clean' type='auto'/></s></ctl>";
             }
         }
 
         public string GetErrorNumberResp(int number)
         {
             return $"<ctl td='error' errno='{number}'/>";
+        }
+
+
+        /// <summary>
+        //* type:
+        //* auto-自动, 
+        //* spot-定点, 
+        //* border-沿边, 
+        //* singleRoom-单间,
+        //* stop - 清扫停止
+        /// </summary>
+        public string GetStartCleanResp(string type)
+        {
+            return $"< ctl td = 'Clean'>< clean type = '{type}'/></ ctl >";
         }
     }
 }

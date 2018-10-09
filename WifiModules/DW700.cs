@@ -25,6 +25,41 @@ namespace WifiModules
             return BuildChanneAResponse(id, _responsHelper.GetCleanReportResp);
         }
 
+        public override string GetLogResp(string id)
+        {
+            return BuildChanneAResponse(id, _responsHelper.GetLogResp);
+        }
+
+        public override string GetLifeSpan(string id)
+        {
+            return BuildChanneAResponse(id, _responsHelper.GetLifeSpanResp);
+        }
+
+        public override string AddSched(string id)
+        {
+            return BuildChanneAResponse(id, _responsHelper.AddSchedResp);
+        }
+
+        public override string ModSched(string id)
+        {
+            return BuildChanneAResponse(id, _responsHelper.ModSchedResp);
+        }
+
+        public override string DelSched(string id)
+        {
+            return BuildChanneAResponse(id, _responsHelper.DelSchedResp);
+        }
+
+        public override string GetCleanReportResp1(string id, string cleanType)
+        {
+            return BuildChanneAResponse(id, _responsHelper.GetCleanReportResp1(cleanType));
+        }
+
+        public override string CleanResp(string id)
+        {
+            return BuildChanneAResponse(id, _responsHelper.CleanResp);
+        }
+
         public override string GetDeviceCapResp()
         {
             return BuildChanneCResponse(_responsHelper.GetDeviceCapResp);
@@ -54,5 +89,11 @@ namespace WifiModules
         {
             return BuildChanneCResponse(_responsHelper.GetWifiStat);
         }
+
+        public override string StartClean(string type)
+        {
+            return BuildChanneDResponse(_responsHelper.GetStartCleanResp(type));
+        }
+        
     }
 }

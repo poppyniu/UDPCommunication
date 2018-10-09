@@ -85,12 +85,23 @@ namespace MockerController.Communicator
                     var message = module.NotifyError(int.Parse(args[1]));
                     Write(message);
                 }
+                else if (command == "clean")
+                {
+                    if (args.Length < 2)
+                    {
+                        continue;
+                    }
+                    var message = module.StartClean(args[1]);
+                    Write(message);
+                }
             }
         }
 
         public void Write(string message)
         {
+            //向串口写消息
             _serialPort.WriteLine(message);
+            //向控制台写消息
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(message);
             Console.ForegroundColor = ConsoleColor.White;
@@ -114,6 +125,7 @@ namespace MockerController.Communicator
             {
                 try
                 {
+                    //从串口读到消息(udp消息，或者操作app触发的消息)就会自动回复
                     string message = _serialPort.ReadLine();
                     messageReadedAction?.Invoke(message);
                     if (message.StartsWith("`"))

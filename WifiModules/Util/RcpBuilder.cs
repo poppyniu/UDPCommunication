@@ -21,6 +21,7 @@ namespace WifiModules.Util
             resp.Replace("\n", "\0x03");
             resp.Append('\0');
             resp.Append(CrcCalculator.CRC_8(Encoding.UTF8.GetBytes(resp.ToString())));
+            //Console.WriteLine("Pack message is:----------{0}",resp);
             return resp.ToString();
         }
 
@@ -81,6 +82,18 @@ namespace WifiModules.Util
             //resp.Replace("\n", "\0x03");
             //resp.Append('\0');
             resp.Append(CrcCalculator.CRC_8(Encoding.UTF8.GetBytes(resp.ToString())));
+            return resp.ToString();
+        }
+
+        internal string BuildChannelD(string message)
+        {
+            var resp = new StringBuilder();
+            resp.Append(StartChar);
+            resp.Append("D");
+            resp.Append('\0');
+            resp.Append('\0');
+            resp.Append(PackSlipMessage(message));
+            resp.Append(EndChar);
             return resp.ToString();
         }
     }

@@ -64,6 +64,11 @@ namespace MockerController.UdpServices
                 var message = module.NotifyError(Convert.ToInt32(subs[1]));
                 _spc.Write(message);
             }
+            else if (subs[0].ToLower() == "clean")
+            {
+                var message = module.StartClean(subs[1]);
+                _spc.Write(message);
+            }
             else
             {
                 return;

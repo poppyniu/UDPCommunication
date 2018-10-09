@@ -15,6 +15,18 @@ namespace MessageWarehouse
         GetVersion,
         GetBatteryInfo,
         GetCleanState,
-        GetSched
+        GetSched,
+        CleanReport,
+        CleanAuto,
+        CleanSingleRoom,
+        CleanBorder,
+        CleanSpot,
+        CleanStop,
+        GetLog,
+        GetLifeSpan,
+        AddSched,
+        ModSched,
+        DelSched
+
     }
 }
